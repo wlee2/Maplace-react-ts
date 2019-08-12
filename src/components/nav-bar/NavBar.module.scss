@@ -1,0 +1,15 @@
+@import '../../styles/color';
+
+.whiteMode {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.navBar {
+    background-color: $myBlue !important;
+    height: 65px !important;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

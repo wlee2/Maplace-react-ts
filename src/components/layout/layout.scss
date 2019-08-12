@@ -1,0 +1,9 @@
+.grid-layout {
+    padding-top: 100px;
+    display: grid;
+    grid-template: 100vh / 1fr minmax(200px, 700px) 1fr;
+
+    .main-body {
+        grid-column: 2;
+    }
+}
