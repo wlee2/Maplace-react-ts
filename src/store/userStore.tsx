@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { saveUserType, errorType } from "../actionTypes/userTypes";
+import { logoutType } from "../actionTypes/snackbarTypes";
 export interface UserState {
     email: string;
     name: string;
@@ -31,6 +32,10 @@ export const reducer: Reducer<UserState> = (state = initialState, action: any) =
                 ...state,
                 error: action.data
             };
+        case logoutType:
+            return {
+                ...initialState
+            }
         default:
             return state
     }

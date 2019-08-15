@@ -1,0 +1,14 @@
+@import '../../styles/color';
+
+.snackbarContainerSuccess {
+    background-color: $myBlue !important;
+}
+
+.snackbarContainerError {
+    background-color: $myRed !important;
+}
+
+.snackbarContents {
+    display: flex;
+    align-items: center;
+}

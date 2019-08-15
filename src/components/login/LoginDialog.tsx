@@ -17,7 +17,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose }) => {
             <List>
                 <ListItem button onClick={() => handleClose(true)}>
                     <ListItemAvatar>
-                        <Avatar>
+                        <Avatar id={styles.avatar}>
                             L
                         </Avatar>
                     </ListItemAvatar>
@@ -25,7 +25,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose }) => {
                 </ListItem>
                 <ListItem button disabled>
                     <ListItemAvatar>
-                        <Avatar className={styles.facebook}>
+                        <Avatar id={styles.avatar} className={styles.facebook}>
                             F
                         </Avatar>
                     </ListItemAvatar>
@@ -33,7 +33,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose }) => {
                 </ListItem>
                 <ListItem button disabled>
                     <ListItemAvatar>
-                        <Avatar className={styles.google}>
+                        <Avatar id={styles.avatar} className={styles.google}>
                             G
                         </Avatar>
                     </ListItemAvatar>

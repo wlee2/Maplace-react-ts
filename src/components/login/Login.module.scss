@@ -1,14 +1,35 @@
 @import '../../styles/color';
 
+#avatar {
+    height: 32px;
+    width: 32px;
+    font-size: 18px;
+}
+
 .facebook {
     background-color: $myBlue !important;
 }
 
 .google {
-    background-color: red !important;
+    background-color: $myRed !important;
 }
 
 .blueBar {
     background-color: $myBlue !important;
     color: white !important;
+    align-items: center !important;
+}
+
+#errorContent {
+    color: $myRed;
+    font-size: 14px;
+    text-align: center;
+}
+
+#menuList {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
