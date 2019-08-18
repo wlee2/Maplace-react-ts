@@ -5,9 +5,10 @@ import styles from './Login.module.scss';
 interface LoginDialogProps {
     open: boolean;
     onClose: (local: boolean) => void;
+    googleLogin: any;
 }
 
-const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose }) => {
+const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose, googleLogin }) => {
     const handleClose = (local: boolean) => {
         onClose(local);
     }
@@ -31,7 +32,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ open, onClose }) => {
                     </ListItemAvatar>
                     <ListItemText primary="Facebook" />
                 </ListItem>
-                <ListItem button disabled>
+                <ListItem button onClick={googleLogin}>
                     <ListItemAvatar>
                         <Avatar id={styles.avatar} className={styles.google}>
                             G

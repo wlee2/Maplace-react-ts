@@ -4,7 +4,6 @@ import { logoutType } from "../actionTypes/snackbarTypes";
 export interface UserState {
     email: string;
     name: string;
-    address: string;
     picture: string;
     error: string;
 }
@@ -12,7 +11,6 @@ export interface UserState {
 const initialState: UserState = {
     email: '',
     name: '',
-    address: '',
     picture: '',
     error: '',
 };
@@ -21,10 +19,9 @@ export const reducer: Reducer<UserState> = (state = initialState, action: any) =
     switch (action.type) {
         case saveUserType:
             return {
-                email: action.data.email,
-                name: action.data.name,
-                address: action.data.address,
-                picture: action.data.picture,
+                email: action.data.Email,
+                name: action.data.Name,
+                picture: action.data.Picture,
                 error: ''
             };
         case errorType:

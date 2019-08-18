@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import User from './components/user/User';
 import Layout from './components/layout/layout';
 import PageNotFound from './components/page-not-found/PageNotFound';
+import Auth from './components/auth/Auth';
 
 
 const App: React.FC = () => {
@@ -15,6 +16,7 @@ const App: React.FC = () => {
             <Route path="/user" component={User} />
             <Route component={PageNotFound} />
           </Switch>
+          <Route path='/auth/:token' component={Auth} />
         </Layout>
     </>
   );

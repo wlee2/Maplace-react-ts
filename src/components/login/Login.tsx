@@ -41,7 +41,6 @@ class Login extends Component<any | LoginProps, LoginState> {
                     open: false,
                     local: false
                 })
-                console.log('im here')
             }
         }
     }
@@ -91,13 +90,13 @@ class Login extends Component<any | LoginProps, LoginState> {
                                 }}
                                 onClose={this.userMenuClose}
                             >
-                                <Link id={styles.menuList} to="/user" onClick={this.userMenuClose}><MenuItem>{this.props.user.name.split(' ')[0]}</MenuItem></Link>
+                                <Link id={styles.menuList} to="/user" onClick={this.userMenuClose}><MenuItem>{this.props.user.name}</MenuItem></Link>
                                 <Divider variant="fullWidth" component="ul" />
                                 <MenuItem id={styles.menuList} onClick={() => { this.props.logout(); this.userMenuClose(); }}>Logout</MenuItem>
                             </Menu>
                         </>
                 }
-                <LoginDialog open={this.state.open} onClose={this.handleClose}></LoginDialog>
+                <LoginDialog open={this.state.open} onClose={this.handleClose} googleLogin={this.props.googleLogin}></LoginDialog>
                 <LocalLogin local={this.state.local} onClose={this.handleClose} login={this.props.login} userRegister={this.props.tryRegister} error={this.props.user.error}></LocalLogin>
                 <MySnackBar open={this.props.snackbar.login} type={'Success'} handleClose={this.props.closeSnackbar} message={`Welcome ${this.props.user.name.split(' ')[0]}`} />
                 <MySnackBar open={this.props.snackbar.logout} type={'Success'} handleClose={this.props.closeSnackbar} message={`Logout!`} />

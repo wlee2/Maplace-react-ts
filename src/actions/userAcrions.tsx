@@ -6,6 +6,7 @@ import { SyntheticEvent } from "react";
 
 export interface UserActionState {
     login: (email: string, password: string, cb: CallableFunction) => any;
+    googleLogin: any;
     getUserInfo: () => void;
     logout: () => void;
     closeSnackbar: (event?: SyntheticEvent, reason?: string) => void;
@@ -50,9 +51,14 @@ export const UserAction: UserActionState = {
             }
         )
     },
+    googleLogin: () => (dispatch: any) => {
+        var left = (window.screen.width / 2) - (400 / 2);
+        var top = (window.screen.height / 2) - (600 / 2);
+        window.open('https://localhost:6500/user/google?redirectURL=http://localhost:3000/', '_blank', `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=400,height=600`);
+    },
     tryRegister: (email: string, address: string, name: string, password: string, cb: CallableFunction) => async (dispatch: any): Promise<any> => {
         let registerResult = await userService.Register(email, address, name, password);
-        if(registerResult === true) {
+        if (registerResult === true) {
             cb(null, true)
         }
         else {
@@ -74,7 +80,7 @@ export const UserAction: UserActionState = {
             },
             err => {
                 localStorage.removeItem('token');
-                console.error(err);
+                console.error(err.error);
             })
     },
     logout: () => (dispatch: any) => {

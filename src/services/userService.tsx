@@ -21,7 +21,7 @@ export default class UserService {
                         observer.error(err.Error);
                     }
                     else {
-                        observer.error(err.response.data.message);
+                        observer.error(err.response.data);
                     }
                 })
         })
@@ -29,7 +29,7 @@ export default class UserService {
 
     tryLogin(email: string, password: string): Observable<any> {
         return new Observable(observer => {
-            axios.post('http://192.168.2.12:5500/user/login', { email: email, password: password })
+            axios.post('http://192.168.2.12:5500/user/login', { Email: email, Password: password })
                 .then(res => {
                     observer.next(res.data);
                 })
@@ -46,7 +46,7 @@ export default class UserService {
 
     async Register(email: string, address: string, name: string, password: string): Promise<boolean | string> {
         try {
-            const data = await axios.post('http://192.168.2.12:5500/user/register', { 'email': email, 'address': address, 'name': name, 'password': password })
+            const data = await axios.post('http://192.168.2.12:5500/user/register', { 'Email': email, 'Address': address, 'Name': name, 'Password': password })
             console.log(data);
             return true;
         } catch (error) {
