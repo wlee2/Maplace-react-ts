@@ -15,6 +15,6 @@ export default function configureStore() {
     });
 
     const w: any = window as any;
-    const dev = w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__();
-    return createStore(reducers, compose(applyMiddleware(thunk), dev));
+    //const dev = w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__();
+    return createStore(reducers, compose(applyMiddleware(thunk)));
 }
