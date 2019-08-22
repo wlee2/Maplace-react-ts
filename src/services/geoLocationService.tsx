@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 
-export default class SampleService {
+export default class GeoLocationService {
   getData(): Observable<any> {
     return new Observable(observer => {
       let watchID: number;

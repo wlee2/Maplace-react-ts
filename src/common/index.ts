@@ -1,10 +1,18 @@
-import Crypto from 'crypto-js';
+import SimpleCrypto from "simple-crypto-js";
 
 
-export function encrypting(origin: string) : string {
-    return Crypto.AES.encrypt(origin, "key").toString()
+export function encrypting(origin: string): string {
+    if (origin) {
+        var simpleCrypto = new SimpleCrypto('key');
+        return simpleCrypto.encrypt(origin);
+    }
+    return '';
 }
 
-export function decrypting(hashed: string) : string {
-    return Crypto.AES.decrypt(hashed, "key").toString(Crypto.enc.Utf8);
+export function decrypting(hashed: string): string | object {
+    if (hashed) {
+        let simpleCrypto = new SimpleCrypto('key');
+        return simpleCrypto.decrypt(hashed);
+    }
+    return '';
 } 

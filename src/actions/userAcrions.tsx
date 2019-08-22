@@ -1,16 +1,15 @@
 import UserService from "../services/userService";
-import { saveUserType, errorType } from "../actionTypes/userTypes";
+import { saveUserType, errorType, logoutType } from "../store/userStore";
 import { encrypting } from "../common";
-import { loginType, logoutType, closeAllType } from "../actionTypes/snackbarTypes";
-import { SyntheticEvent } from "react";
+import { openSnackbar } from "../store/snackbarStore"
 
 export interface UserActionState {
     login: (email: string, password: string, cb: (error: string | null, success: boolean) => void) => any;
     googleLogin: any;
     getUserInfo: () => void;
     logout: () => void;
-    closeSnackbar: (event?: SyntheticEvent, reason?: string) => void;
     tryRegister: (email: string, address: string, name: string, password: string, cb: (error: string | null, success: boolean) => void) => any;
+    openSnackbarInUserAction: any;
 }
 
 
@@ -28,7 +27,9 @@ export const UserAction: UserActionState = {
                 data: user
             })
             dispatch({
-                type: loginType
+                type: openSnackbar,
+                status: 'Success',
+                message: `Welcome ${user.Name}`
             })
             cb(null, true)
         } catch (err) {
@@ -57,12 +58,15 @@ export const UserAction: UserActionState = {
         //token required
         try {
             const user = await userService.getUsers();
+
             dispatch({
                 type: saveUserType,
                 data: user
             })
             dispatch({
-                type: loginType
+                type: openSnackbar,
+                status: 'Success',
+                message: `Welcome ${user.Name}`
             })
         } catch (err) {
             localStorage.removeItem('token');
@@ -74,15 +78,18 @@ export const UserAction: UserActionState = {
         dispatch({
             type: logoutType
         })
-    },
-    closeSnackbar: (event?: SyntheticEvent, reason?: string) => (dispatch: any) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
         dispatch({
-            type: closeAllType
+            type: openSnackbar,
+            status: 'Success',
+            message: `Successfully logged out!`
         })
 
+    },
+    openSnackbarInUserAction: (status: 'Success' | 'Error', message: string) => (dispatch: any) => {
+        dispatch({
+            type: openSnackbar,
+            status: status,
+            message: message
+        })
     }
 }

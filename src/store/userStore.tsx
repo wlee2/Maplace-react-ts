@@ -1,6 +1,9 @@
 import { Reducer } from "redux";
-import { saveUserType, errorType } from "../actionTypes/userTypes";
-import { logoutType } from "../actionTypes/snackbarTypes";
+
+export const saveUserType = "SAVE_USER";
+export const errorType = "ERROR"
+export const logoutType = "LOGOUT"
+
 export interface UserState {
     email: string;
     name: string;

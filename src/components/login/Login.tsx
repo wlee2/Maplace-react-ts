@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { StoreState } from '../../store';
 import LoginDialog from './LoginDialog';
 import LocalLogin from './LocalLogin';
-import MySnackBar from '../snack-bar/MySnackBar';
 import { LoginProps, LoginState } from './LoginInterface';
 import { Link } from 'react-router-dom';
 
@@ -98,8 +97,6 @@ class Login extends Component<any | LoginProps, LoginState> {
                 }
                 <LoginDialog open={this.state.open} onClose={this.handleClose} googleLogin={this.props.googleLogin}></LoginDialog>
                 <LocalLogin local={this.state.local} onClose={this.handleClose} login={this.props.login} userRegister={this.props.tryRegister} error={this.props.user.error}></LocalLogin>
-                <MySnackBar open={this.props.snackbar.login} type={'Success'} handleClose={this.props.closeSnackbar} message={`Welcome ${this.props.user.name.split(' ')[0]}`} />
-                <MySnackBar open={this.props.snackbar.logout} type={'Success'} handleClose={this.props.closeSnackbar} message={`Logout!`} />
             </React.Fragment>
         );
     }
@@ -107,7 +104,6 @@ class Login extends Component<any | LoginProps, LoginState> {
 
 const mapStateToProps = (state: StoreState) => ({
     user: state.user,
-    snackbar: state.snackbar
 });
 
 export default connect(

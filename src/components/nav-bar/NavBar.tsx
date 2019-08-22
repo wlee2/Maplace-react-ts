@@ -8,7 +8,7 @@ import Login from '../login/Login';
 const NavBar = () => {
     return (
         <div>
-            <AppBar className={styles.navBar} position="fixed">
+            <AppBar id={styles.navBar} position="fixed">
                 <Toolbar>
                     <Link to="/">
                         <IconButton className={styles.whiteMode}>
@@ -16,11 +16,16 @@ const NavBar = () => {
                         </IconButton>
                     </Link>
                     <Link to="/" className={styles.whiteMode}>
-                        <Typography variant="subtitle1">
+                        <Typography variant="button">
                             MaPlace
                         </Typography>
                     </Link>
                     <span className={styles.spacer}></span>
+                    <Link to="/write" className={styles.whiteMode}>
+                        <Typography variant="button">
+                            wirte
+                        </Typography>
+                    </Link>
                     <Login />
 
                 </Toolbar>

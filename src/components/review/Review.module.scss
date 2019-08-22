@@ -1,0 +1,75 @@
+@import "../../styles/color";
+
+.carousel {
+  height: 400px !important;
+  .imageBox {
+    height: 400px;
+    .image {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    height: 300px !important;
+    .imageBox {
+      height: 300px;
+    }
+  }
+}
+
+#cardContainer {
+  margin-bottom: 50px;
+  @media screen and (max-width: 500px) {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.pinContainer {
+  position: absolute;
+  top: -35px;
+  left: -17px;
+  .pinText {
+    position: absolute;
+    width: 120px;
+    height: 53px;
+    background-color: white;
+    top: -58px;
+    left: -45px;
+    padding: 5px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+    .text {
+      width: 100%;
+      height: 20px;
+      font-size: 13px;
+      text-align: center;
+      overflow: auto;
+    }
+  }
+  #pinIcon {
+    font-size: 35px;
+    color: $myBlue;
+    cursor: pointer;
+  }
+}
+
+.mapContainer {
+  height: 100%;
+  width: 100%;
+}
+
+#enableIcon {
+  font-size: 25px;
+  color: black;
+}
+
+#disableIcon {
+  font-size: 25px;
+  color: gray;
+}
+
+#selectedIcon {
+  font-size: 25px;
+  color: $myBlue;
+}

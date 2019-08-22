@@ -9,9 +9,13 @@ const layout: React.FC<any> = ({
         <>
             <NavBar />
             <div className="grid-layout" >
-                <div className="main-body">
+                <aside id="left">
+                </aside>
+                <div id="center">
                     {children}
                 </div>
+                <aside id="right">
+                </aside>
             </div>
             <div className="footer">
 

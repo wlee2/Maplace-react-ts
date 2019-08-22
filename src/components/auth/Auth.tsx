@@ -6,14 +6,14 @@ class Auth extends Component<any> {
     redirecting = () => {
         if (this.props.match.params.token && window.opener) {
             localStorage.setItem("token", encrypting(this.props.match.params.token))
-            window.opener.location.href = "http://localhost:3000/"
+            window.opener.location.pathname = "/"
             window.close();
         }
         else {
             return <Redirect to='/' />
         }
     }
-    
+
     render() {
         return (
             <div>

@@ -1,19 +1,16 @@
-import { loginType, closeAllType, logoutType } from "../actionTypes/snackbarTypes";
+import { openSnackbar, closeSnackbar } from "../store/snackbarStore";
 
 export const SnackbarAction = {
-    login: () => (dispatch: any) => {
+    openSnackbar: (status: 'Success' | 'Error', message: string) => (dispatch: any) => {
         dispatch({
-            type: loginType
-        })
-    },
-    logout: () => (dispatch: any) => {
-        dispatch({
-            type: logoutType
+            type: openSnackbar,
+            status: status,
+            message: message
         })
     },
     closeSnackbar: () => (dispatch: any) => {
         dispatch({
-            type: closeAllType
+            type: closeSnackbar
         })
     }
 }

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StoreState } from '../../store';
 import { Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { UserAction } from '../../actions/userAcrions';
 
 class User extends Component<any, any> {
 
     redirecting = () => {
         if (this.props.user.email === '') {
+            this.props.openSnackbarInUserAction('Error', 'Login Required')
             return <Redirect to='/' />
         }
     }
@@ -22,6 +25,7 @@ class User extends Component<any, any> {
                         })
                     }
                 </div>
+                
             </>
         );
     }
@@ -32,5 +36,6 @@ const mapStateToProps = (state: StoreState) => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    dispatch => bindActionCreators(UserAction as any, dispatch)
 )(User);

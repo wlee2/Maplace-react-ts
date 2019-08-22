@@ -1,32 +1,33 @@
 import { Reducer } from "redux";
-import { loginType, logoutType, closeAllType } from "../actionTypes/snackbarTypes";
+
+export const openSnackbar = "OPEN";
+export const closeSnackbar = "CLOSE";
 
 export interface SnackbarState {
-    login: boolean;
-    logout: boolean;
+    open: boolean;
+    status: 'Success' | 'Error';
+    message: string;
 }
 
 const initialState: SnackbarState = {
-    login: false,
-    logout: false,
+    open: false,
+    status: 'Success',
+    message: ''
 };
 
 export const reducer: Reducer<SnackbarState> = (state = initialState, action: any) => {
     switch (action.type) {
-        case loginType:
+        case openSnackbar:
             return {
-                ...initialState,
-                login: true
+                open: true,
+                status: action.status,
+                message: action.message
             };
-        case logoutType:
+        case closeSnackbar:
             return {
-                ...initialState,
-                logout: true
+                ...state,
+                open: false
             };
-        case closeAllType:
-            return {
-                ...initialState
-            }
         default:
             return state
     }

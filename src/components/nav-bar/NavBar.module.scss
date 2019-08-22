@@ -1,15 +1,19 @@
-@import '../../styles/color';
+@import "../../styles/color";
 
 .whiteMode {
-    color: white !important;
-    text-decoration: none !important;
+  color: white !important;
+  text-decoration: none !important;
 }
 
-.navBar {
-    background-color: $myBlue !important;
-    height: 65px !important;
+#navBar {
+  background-color: $myBlue;
+  min-height: 65px;
+  @media screen and (max-width: 500px) {
+    min-height: 70px;
+    padding-top: 6px;
+  }
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
