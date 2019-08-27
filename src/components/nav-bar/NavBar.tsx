@@ -87,7 +87,10 @@ const NavBar = () => {
                                     onBlur={handleAway}
                                 />
                                 {
-                                    searchInput.length !== 0 ? <Clear onClick={clear} /> : null
+                                    searchInput.length !== 0 ?
+                                        <IconButton onClick={clear} >
+                                            <Clear />
+                                        </IconButton> : null
                                 }
                                 {
                                     myAnchorEl ?
