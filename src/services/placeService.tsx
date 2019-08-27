@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { decrypting } from "../common";
+import { async } from 'q';
 
 export default class PlaceService {
     token: string;
@@ -45,6 +46,22 @@ export default class PlaceService {
         return new Promise(async (resolve, reject) => {
             try {
                 const { data } = await axios.get(`http://${window.location.hostname}:5500/place/autocomplete/city?input=${input}`);
+                resolve(data);
+            } catch (err) {
+                if (err.response === undefined) {
+                    reject(err.Error)
+                }
+                else {
+                    reject(err.response.data);
+                }
+            }
+        })
+    }
+
+    getSearch(input: string): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { data } = await axios.get(`http://${window.location.hostname}:5500/review/search?searchString=${input}`);
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {

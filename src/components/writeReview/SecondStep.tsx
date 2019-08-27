@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Fade, Paper, List, ListItem, ListItemText, Divider, Popper, Typography } from '@material-ui/core';
+import { TextField, Fade, Paper, List, ListItem, ListItemText, Divider, Popper, Typography, Button } from '@material-ui/core';
 import PlaceService from '../../services/placeService';
 import GoogleMapReact from 'google-map-react';
 import { google_api_key } from '../../secret';
 import MapPinComponent from '../review/MapPinComponent';
-
-let timeout: any;
 
 const SecondStep: React.FC<any> = (props) => {
     const placeService = new PlaceService();
@@ -14,6 +12,7 @@ const SecondStep: React.FC<any> = (props) => {
     const [searchData, serSearchData] = useState([]);
     const [selectData, setSelectData] = useState<any>(null);
     const [open, setOpen] = useState(false);
+    const [timer, setTimer] = useState<any>(null);
 
     const mapOptions = {
         clickableIcons: false,
@@ -22,9 +21,9 @@ const SecondStep: React.FC<any> = (props) => {
     
     useEffect(() => {
         return function cleanup() {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
+            if (timer) {
+                clearTimeout(timer);
+                setTimer(null)
             }
         };
     })
@@ -33,10 +32,9 @@ const SecondStep: React.FC<any> = (props) => {
         setSearchInput(evt.target.value);
         try {
             if (evt.target.value.length > 1) {
-                const searchResult = await placeService.getAutocomplete(evt.target.value, props.data.lat, props.data.lng);
+                const searchResult = await placeService.getAutocomplete(searchInput, props.data.lat, props.data.lng);
                 if (searchResult.length > 0) {
                     setOpen(true);
-                    // console.log(searchResult)
                     serSearchData(searchResult);
                 }
             }
@@ -57,35 +55,38 @@ const SecondStep: React.FC<any> = (props) => {
 
     const handleAway = () => {
         if (myAnchorEl) {
-            timeout = setTimeout(() => {
+            setTimer(setTimeout(() => {
                 setMyAnchorEl(null);
-            }, 200)
+            }, 200))
         }
     }
 
     const handleSelect = async (data: any) => {
         try {
             const locationDetail = await placeService.getDetail(data.place_id);
-            console.log("selected data => ", locationDetail)
             setSelectData(locationDetail);
             setMyAnchorEl(null);
         } catch (error) {
             console.log(error);
         }
-
+    }
+    
+    const handleNext = () => {
+        props.setData(selectData);
+        props.setActiveStep(props.activeStep + 1);
     }
 
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <div>
                 <Typography style={{ marginBottom: '40px', color: '#29487d' }} variant="button" gutterBottom>
-                    Search And Selete A Location To Reviewing
+                    Please Select A Place To Review
                 </Typography>
             </div>
             <div>
                 <TextField
                     style={{ width: '300px' }}
-                    label="Select Location"
+                    label="Select Place"
                     value={searchInput}
                     onChange={(e) => { handleChange(e) }}
                     onClick={(e) => { handleClick(e) }}
@@ -103,7 +104,7 @@ const SecondStep: React.FC<any> = (props) => {
                                                 searchData.map((data: any, index: number) => {
                                                     return (
                                                         <div key={index}>
-                                                            <ListItem button onClick={() => { handleSelect(data) }}>
+                                                            <ListItem style={{paddingTop: '0px', paddingBottom: '0px'}} button onClick={() => { handleSelect(data) }}>
                                                                 <ListItemText primary={data.structured_formatting.main_text} secondary={data.structured_formatting.secondary_text} />
                                                             </ListItem>
                                                             {searchData.length - 1 === index ? null : <Divider />}
@@ -121,7 +122,7 @@ const SecondStep: React.FC<any> = (props) => {
             </div>
             {
                 selectData ?
-                    <div style={{ marginTop: "40px", height: '350px', width: '100%' }}>
+                    <div style={{ margin: "30px 0 20px 0", height: '300px', width: '100%' }}>
                         <GoogleMapReact
                             bootstrapURLKeys={{ key: google_api_key }}
                             center={{ lat: selectData.geometry.location.lat, lng: selectData.geometry.location.lng }}
@@ -138,8 +139,12 @@ const SecondStep: React.FC<any> = (props) => {
                             />
                         </GoogleMapReact>
                     </div>
-                    : null
+                    :
+                    <div style={{ margin: "30px 0 20px 0", height: '300px', width: '100%' }}></div>
             }
+            <Button variant="contained" color="primary" onClick={handleNext} disabled={!selectData ? true : false}>
+                Confirm
+            </Button>
 
         </div>
 

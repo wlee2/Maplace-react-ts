@@ -1,19 +1,44 @@
 @import "../../styles/color";
 
 .carousel {
-  height: 400px !important;
+  height: 400px;
+  width: 100%;
+  background-color: whitesmoke;
   .imageBox {
     height: 400px;
+    width: 100%;
+    overflow: hidden;
     .image {
       height: 100%;
+      width: 100%;
       object-fit: cover;
     }
   }
+  .mapContainer {
+    height: 400px;
+    width: 100%;
+  }
   @media screen and (max-width: 500px) {
-    height: 300px !important;
+    height: 300px;
     .imageBox {
       height: 300px;
     }
+    .mapContainer {
+      height: 300px;
+    }
+  }
+}
+
+.carouselSkeleton {
+  margin: 0;
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  @media screen and (max-width: 500px) {
+    height: 300px;
   }
 }
 
@@ -54,22 +79,40 @@
   }
 }
 
-.mapContainer {
-  height: 100%;
-  width: 100%;
-}
-
 #enableIcon {
-  font-size: 25px;
+  font-size: 20px;
   color: black;
 }
 
 #disableIcon {
-  font-size: 25px;
+  font-size: 20px;
   color: gray;
 }
 
 #selectedIcon {
-  font-size: 25px;
+  font-size: 20px;
   color: $myBlue;
+}
+
+#arrow {
+  color: white;
+}
+
+#disableArrow {
+  color: darkgray;
+  opacity: 0.3;
+}
+
+#selectedDot {
+  background-color: darkgray;
+}
+
+.dot {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  margin: 3px;
+  background-color: white;
+  cursor: pointer;
 }

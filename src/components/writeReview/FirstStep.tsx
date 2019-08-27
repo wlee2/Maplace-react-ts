@@ -33,7 +33,7 @@ const FirstStep: React.FC<any> = (props) => {
                 }
             )
         }
-    })
+    }, [])
 
     useEffect(() => {
         return function cleanup() {
@@ -48,7 +48,6 @@ const FirstStep: React.FC<any> = (props) => {
     })
 
     const setNextStep = (geo: any) => {
-        console.log('here')
         props.setData({ lat: geo.lat, lng: geo.lng });
         props.setActiveStep(props.activeStep + 1);
     }
