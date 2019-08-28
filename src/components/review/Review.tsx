@@ -18,9 +18,10 @@ interface ReviewProps {
     review: ReviewModel;
     email: string;
     deleteHandle: any;
+    type?: any;
 }
 
-const Review: React.FC<ReviewProps> = ({ review, email, deleteHandle }) => {
+const Review: React.FC<ReviewProps> = ({ review, email, deleteHandle, type }) => {
     const [step, setStep] = useState(0);
     const [loading, setLoading] = useState(true);
     const [loadCount, setLoadCount] = useState(0);
@@ -86,30 +87,35 @@ const Review: React.FC<ReviewProps> = ({ review, email, deleteHandle }) => {
                             <IconButton style={step === review.Photos.length ? { padding: '10px', backgroundColor: 'whitesmoke' } : { padding: '10px' }} onClick={() => { setStep(review.Photos.length) }}>
                                 <PlaceIcon id={step === review.Photos.length ? styles.selectedIcon : styles.enableIcon} />
                             </IconButton>
-                            <IconButton id={styles.enableIcon} style={{ padding: '10px' }} onClick={(e) => { handleClick(e) }} onBlur={handleAway}>
-                                <MoreHorizIcon />
-                            </IconButton>
                             {
-                                myAnchorEl ?
-                                    <Popper open={open} placement={'bottom-start'} anchorEl={myAnchorEl} keepMounted transition>
-                                        {({ TransitionProps }) => (
-                                            <Fade {...TransitionProps} timeout={350}>
-                                                <Paper>
-                                                    <ClickAwayListener onClickAway={handleAway}>
-                                                    <List>
-                                                        <ListItem button style={{ fontSize: '12px' }} disabled={email === review.AuthorEmail ? false : true}>
-                                                            <Edit /> &nbsp; EDIT
-                                                        </ListItem>
-                                                        <ListItem button style={{ fontSize: '12px' }} onClick={() => { deleteHandle(review.ID) }} disabled={email === review.AuthorEmail ? false : true}>
-                                                            <Delete /> &nbsp; DELETE
-                                                        </ListItem>
-                                                    </List>
-                                                    </ClickAwayListener>
-                                                </Paper>
-                                            </Fade>
-                                        )}
-                                    </Popper> :
-                                    null
+                                type !== "search" ?
+                                    <>
+                                        <IconButton id={styles.enableIcon} style={{ padding: '10px' }} onClick={(e) => { handleClick(e) }} onBlur={handleAway}>
+                                            <MoreHorizIcon />
+                                        </IconButton>
+                                        {
+                                            myAnchorEl ?
+                                                <Popper open={open} placement={'bottom-start'} anchorEl={myAnchorEl} keepMounted transition>
+                                                    {({ TransitionProps }) => (
+                                                        <Fade {...TransitionProps} timeout={350}>
+                                                            <Paper>
+                                                                <ClickAwayListener onClickAway={handleAway}>
+                                                                    <List>
+                                                                        <ListItem button style={{ fontSize: '12px' }} disabled={email === review.AuthorEmail ? false : true}>
+                                                                            <Edit /> &nbsp; EDIT
+                                                                        </ListItem>
+                                                                        <ListItem button style={{ fontSize: '12px' }} onClick={() => { deleteHandle(review.ID) }} disabled={email === review.AuthorEmail ? false : true}>
+                                                                            <Delete /> &nbsp; DELETE
+                                                                        </ListItem>
+                                                                    </List>
+                                                                </ClickAwayListener>
+                                                            </Paper>
+                                                        </Fade>
+                                                    )}
+                                                </Popper> :
+                                                null
+                                        }
+                                    </> : null
                             }
                         </div>
                     }

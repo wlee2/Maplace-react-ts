@@ -8,8 +8,8 @@ import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import styles from './Home.module.scss';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, Button, DialogActions, CircularProgress, Typography } from '@material-ui/core';
-import { PullToRefresh } from "react-js-pull-to-refresh";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, Button, DialogActions, CircularProgress, Fab } from '@material-ui/core';
+import { ArrowUpward } from '@material-ui/icons';
 
 const Home: React.FC<any> = (props) => {
     const [scroll, setScroll] = useState(0);
@@ -17,6 +17,7 @@ const Home: React.FC<any> = (props) => {
     const [waiting, setWaiting] = useState(false);
     const [confirmation, setConfirmation] = useState(false);
     const [deleteID, setDeleteID] = useState<any>(null);
+    const [refreshLoading, setRefreshLoading] = useState(false);
 
     useEffect(() => {
         props.reviewInit();
@@ -77,22 +78,19 @@ const Home: React.FC<any> = (props) => {
         });
     }
 
-    const refreshing = (): Promise<any> => {
-        return new Promise((resolve, reject) => {
-            props.reviewInit((done: boolean) => {
-                if (done) {
-                    setPage(0);
-                    window.scrollTo(0, 0);
-                    setWaiting(false);
-                    resolve()
-                }
-                else {
-                    reject();
-                }
-            });
-
-        })
-
+    const refreshing = () => {
+        setRefreshLoading(true);
+        props.reviewInit((done: boolean) => {
+            if (done) {
+                setPage(0);
+                window.scrollTo(0, 0);
+                setWaiting(false);
+                setRefreshLoading(false);
+            }
+            else {
+                setRefreshLoading(false);
+            }
+        });
     }
 
     return (
@@ -107,6 +105,14 @@ const Home: React.FC<any> = (props) => {
                     </div>
                     :
                     <div>
+                        <div style={{ display: 'flex', justifyContent: 'center', margin: 10 }} >
+                            <div style={{ position: 'relative' }}>
+                                <Button id={refreshLoading ? styles.disabled : styles.enable} variant="contained" onClick={refreshing} disabled={refreshLoading}>
+                                    Update
+                                </Button>
+                                {refreshLoading && <CircularProgress size={24} style={{ position: 'absolute', top: '50%', left: '50%', marginTop: -12, marginLeft: -12 }} />}
+                            </div>
+                        </div>
                         {
                             props.reviews.map((review: ReviewModel) => {
                                 return <Review key={review.ID} review={review} email={props.email} deleteHandle={deleteHandle} />
@@ -119,6 +125,10 @@ const Home: React.FC<any> = (props) => {
                                 </div> :
                                 null
                         }
+                        <Fab id={styles.enable} style={{ position: "fixed", bottom: '20px', left: '50%', width: '35px', marginLeft: '-17.5px', height: '20px' }} onClick={() => { window.scrollTo(0, 0) }}>
+                            <ArrowUpward />
+                        </Fab>
+
                     </div>
             }
 

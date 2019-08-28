@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { decrypting } from "../common";
-import { async } from 'q';
 
 export default class PlaceService {
     token: string;

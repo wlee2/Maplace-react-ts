@@ -17,29 +17,3 @@
 .spacer {
   flex: 1 1 auto;
 }
-
-#popper {
-  z-index: 9999;
-  margin-top: 20px;
-  @media screen and (max-width: 500px) {
-    margin-top: 22px;
-  }
-}
-
-#paper {
-  z-index: 9999;
-  width: 100%;
-  padding: 18px 15px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  button {
-    padding: 5px;
-    margin : 0;
-  }
-  @media screen and (max-width: 500px) {
-    padding: 20px 15px;
-  }
-}

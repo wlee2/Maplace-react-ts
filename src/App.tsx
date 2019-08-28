@@ -7,6 +7,7 @@ import PageNotFound from './components/page-not-found/PageNotFound';
 import Auth from './components/auth/Auth';
 import MySnackBar from './components/snack-bar/MySnackBar';
 import WriteReview from './components/writeReview/WriteReview';
+import Search from './components/search/Search';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Route path="/" exact component={Home} />
           <Route path="/user" component={User} />
           <Route path="/write" component={WriteReview} />
+          <Route path="/search" component={Search} />
           <Route component={PageNotFound} />
         </Switch>
         <Route path='/auth/:token' component={Auth} />
