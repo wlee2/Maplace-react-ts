@@ -19,20 +19,25 @@ export const UserAction: UserActionState = {
 
         try {
             const token = await userService.tryLogin(email, password);
-            const encrypted = await encrypting(token.token);
-            localStorage.setItem("token", encrypted);
+            encrypting(token.token, async (encrypted: string) => {
+                try {
+                    localStorage.setItem("token", encrypted);
 
-            const user = await userService.getUsers();
-            dispatch({
-                type: saveUserType,
-                data: user
-            })
-            dispatch({
-                type: openSnackbar,
-                status: 'Success',
-                message: `Welcome ${user.Name}`
-            })
-            cb(null, true)
+                    const user = await userService.getUsers();
+                    dispatch({
+                        type: saveUserType,
+                        data: user
+                    })
+                    dispatch({
+                        type: openSnackbar,
+                        status: 'Success',
+                        message: `Welcome ${user.Name}`
+                    })
+                    cb(null, true)
+                } catch(err) {
+                    throw err;
+                }   
+            });
         } catch (err) {
             console.log(err);
             dispatch({
