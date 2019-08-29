@@ -43,13 +43,16 @@ class LocalLogin extends Component<LocalLoginProps, any> {
     }
 
     loginRequest = () => {
-        this.props.login(this.state.email.toLowerCase(), this.state.password, (err: string, sucess: any) => {
+        this.props.login(this.state.email.toLowerCase(), this.state.password, (err: string, success: any) => {
             if (err) {
                 return;
             }
-            this.props.getUser();
-            this.setState({ successToLogin: true })
-            this.props.onClose(false);
+            if(success) {
+                this.props.getUser();
+                this.setState({ successToLogin: true })
+                this.props.onClose(false);
+            }
+            
         });
     }
 
