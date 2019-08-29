@@ -17,16 +17,25 @@ export class ReviewRequestModel {
 
 export default class ReviewService {
     token: string;
+    basicURL: string;
+    port: string;
 
     constructor() {
         const hashedToken: any = localStorage.getItem('token');
         this.token = decrypting(hashedToken).toString();
+        if(window.location.protocol === 'https:') {
+            this.port = '6500'
+        }
+        else {
+            this.port = '5500'
+        }
+        this.basicURL = `${window.location.protocol}//${window.location.hostname}:${this.port}`;
     }
 
     getReviews(page: number): Promise<ReviewModel[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.get(`http://${window.location.hostname}:5500/review?page=${page}`);
+                const { data } = await axios.get(`${this.basicURL}/review?page=${page}`);
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {
@@ -42,7 +51,7 @@ export default class ReviewService {
     postReview(reviewRequestModel: ReviewRequestModel): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.post(`http://${window.location.hostname}:5500/review`, reviewRequestModel, { headers: { "Authorization": `Bearer ${this.token}` } });
+                const { data } = await axios.post(`${this.basicURL}/review`, reviewRequestModel, { headers: { "Authorization": `Bearer ${this.token}` } });
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {
@@ -58,7 +67,7 @@ export default class ReviewService {
     deleteReview(id: string): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.delete(`http://${window.location.hostname}:5500/review/${id}`, { headers: { "Authorization": `Bearer ${this.token}` } });
+                const { data } = await axios.delete(`${this.basicURL}/review/${id}`, { headers: { "Authorization": `Bearer ${this.token}` } });
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {
