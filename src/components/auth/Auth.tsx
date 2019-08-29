@@ -3,9 +3,10 @@ import { encrypting } from '../../common';
 import { Redirect } from 'react-router';
 
 class Auth extends Component<any> {
-    redirecting = () => {
+    redirecting = async () => {
         if (this.props.match.params.token && window.opener) {
-            localStorage.setItem("token", encrypting(this.props.match.params.token))
+            const token = await encrypting(this.props.match.params.token)
+            localStorage.setItem("token", token)
             window.opener.location.pathname = "/"
             window.close();
         }
