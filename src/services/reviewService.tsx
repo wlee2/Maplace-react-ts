@@ -16,13 +16,11 @@ export class ReviewRequestModel {
 }
 
 export default class ReviewService {
-    token: string;
     basicURL: string;
     port: string;
 
     constructor() {
-        const hashedToken: any = localStorage.getItem('token');
-        this.token = decrypting(hashedToken).toString();
+        
         if(window.location.protocol === 'https:') {
             this.port = '6500'
         }
@@ -51,7 +49,9 @@ export default class ReviewService {
     postReview(reviewRequestModel: ReviewRequestModel): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.post(`${this.basicURL}/review`, reviewRequestModel, { headers: { "Authorization": `Bearer ${this.token}` } });
+                const hashedToken: any = localStorage.getItem('token');
+                const token = await decrypting(hashedToken);
+                const { data } = await axios.post(`${this.basicURL}/review`, reviewRequestModel, { headers: { "Authorization": `Bearer ${token.toString()}` } });
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {
@@ -67,7 +67,9 @@ export default class ReviewService {
     deleteReview(id: string): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.delete(`${this.basicURL}/review/${id}`, { headers: { "Authorization": `Bearer ${this.token}` } });
+                const hashedToken: any = localStorage.getItem('token');
+                const token = await decrypting(hashedToken);
+                const { data } = await axios.delete(`${this.basicURL}/review/${id}`, { headers: { "Authorization": `Bearer ${token.toString()}` } });
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {

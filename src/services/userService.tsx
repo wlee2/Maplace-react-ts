@@ -3,12 +3,9 @@ import { decrypting } from "../common";
 
 export default class UserService {
 
-    token: string;
     basicURL: string;
 
     constructor() {
-        const hashedToken: any = localStorage.getItem('token');
-        this.token = decrypting(hashedToken).toString();
         if(window.location.protocol === 'https:') {
             this.basicURL = `${window.location.protocol}//${window.location.hostname}:6500`;
         }
@@ -20,10 +17,11 @@ export default class UserService {
 
 
     getUsers(): Promise<any> {
-        const hashedToken: any = localStorage.getItem('token');
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = await axios.get(`${this.basicURL}/user/`, { headers: { "Authorization": `Bearer ${this.token}` } });
+                const hashedToken: any = localStorage.getItem('token');
+                const token = await decrypting(hashedToken);
+                const { data } = await axios.get(`${this.basicURL}/user/`, { headers: { "Authorization": `Bearer ${token.toString()}` } });
                 resolve(data);
             } catch (err) {
                 if (err.response === undefined) {

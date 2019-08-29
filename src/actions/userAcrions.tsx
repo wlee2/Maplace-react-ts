@@ -19,7 +19,7 @@ export const UserAction: UserActionState = {
         try {
             const token = await userService.tryLogin(email, password);
             const encrypted = await encrypting(token.token);
-            await localStorage.setItem("token", encrypted);
+            localStorage.setItem("token", encrypted);
 
             cb(null, true)
         } catch (err) {

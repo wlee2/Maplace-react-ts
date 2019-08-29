@@ -2,14 +2,11 @@ import axios from 'axios';
 import { decrypting } from "../common";
 
 export default class PlaceService {
-    token: string;
     basicURL: string;
     port: string;
 
     constructor() {
-        const hashedToken: any = localStorage.getItem('token');
-        this.token = decrypting(hashedToken).toString();
-        if(window.location.protocol === 'https:') {
+        if (window.location.protocol === 'https:') {
             this.port = '6500'
         }
         else {
@@ -49,7 +46,7 @@ export default class PlaceService {
             }
         })
     }
-    
+
     getCitys(input: string): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
