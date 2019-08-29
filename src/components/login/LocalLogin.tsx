@@ -141,7 +141,7 @@ const LoginPresenter: React.FC<any> = (props: any) => {
                 />
             </DialogContent>
             <DialogContentText id={styles.errorContent}>
-                {props.props.error}
+                {props.props.error && props.props.error}
             </DialogContentText>
             <DialogActions>
                 <Button color="primary" onClick={props.toggleRegister}>

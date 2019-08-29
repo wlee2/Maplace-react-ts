@@ -5,18 +5,17 @@ export default class UserService {
 
     token: string;
     basicURL: string;
-    port: string;
 
     constructor() {
         const hashedToken: any = localStorage.getItem('token');
         this.token = decrypting(hashedToken).toString();
         if(window.location.protocol === 'https:') {
-            this.port = '6500'
+            this.basicURL = `${window.location.protocol}//${window.location.hostname}:6500`;
         }
         else {
-            this.port = '5500'
+            this.basicURL = `${window.location.protocol}//${window.location.hostname}:5500`;
         }
-        this.basicURL = `${window.location.protocol}//${window.location.hostname}:${this.port}`;
+        
     }
 
 
