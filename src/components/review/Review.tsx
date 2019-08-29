@@ -135,7 +135,7 @@ const Review: React.FC<ReviewProps> = ({ review, email, deleteHandle, type }) =>
                                 review.Photos.map((photo, index) => {
                                     return (
                                         <div key={index} className={styles.imageBox} >
-                                            <img className={styles.image} src={`http://${window.location.hostname}:5500/photo/${review.ID}/${photo}.png`} onLoad={imageLoaded} alt={review.LocationName} />
+                                            <img className={styles.image} src={`https://${window.location.hostname}:6500/photo/${review.ID}/${photo}.png`} onLoad={imageLoaded} alt={review.LocationName} />
                                         </div>
                                     )
 
