@@ -34,6 +34,7 @@ export const UserAction: UserActionState = {
             })
             cb(null, true)
         } catch (err) {
+            console.log(err);
             dispatch({
                 type: errorType,
                 data: err
