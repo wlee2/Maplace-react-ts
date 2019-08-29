@@ -16,11 +16,11 @@ export interface UserActionState {
 const userService: UserService = new UserService();
 export const UserAction: UserActionState = {
     login: (email: string, password: string, cb: (error: string | null, success: boolean) => void) => async (dispatch: any) => {
-
         try {
             const token = await userService.tryLogin(email, password);
-            localStorage.setItem("token", encrypting(token.token));
-            
+            const encrypted = await encrypting(token.token);
+            await localStorage.setItem("token", encrypted);
+
             cb(null, true)
         } catch (err) {
             console.log(err);

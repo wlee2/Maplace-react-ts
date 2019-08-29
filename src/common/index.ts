@@ -1,24 +1,22 @@
 import SimpleCrypto from "simple-crypto-js";
 
 
-export function encrypting(origin: string, done?: CallableFunction): string {
+export function encrypting(origin: string): string {
     if (origin) {
         var simpleCrypto = new SimpleCrypto('key');
-        if(done) {
-            done(simpleCrypto.encrypt(origin))
-        }
         return simpleCrypto.encrypt(origin);
     }
     return '';
 }
 
-export function decrypting(hashed: string, done?: CallableFunction): string | object {
-    if (hashed) {
-        let simpleCrypto = new SimpleCrypto('key');
-        if(done) {
-            done(simpleCrypto.decrypt(hashed))
+export function decrypting(hashed: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+        if (hashed) {
+            let simpleCrypto = new SimpleCrypto('key');
+            const data = await simpleCrypto.decrypt(hashed);
+            resolve(data);
         }
-        return simpleCrypto.decrypt(hashed);
-    }
-    return '';
+        reject('')
+    })
+    
 } 
