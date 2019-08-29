@@ -96,7 +96,7 @@ class Login extends Component<any | LoginProps, LoginState> {
                         </>
                 }
                 <LoginDialog open={this.state.open} onClose={this.handleClose} googleLogin={this.props.googleLogin}></LoginDialog>
-                <LocalLogin local={this.state.local} onClose={this.handleClose} login={this.props.login} userRegister={this.props.tryRegister} error={this.props.user.error}></LocalLogin>
+                <LocalLogin local={this.state.local} onClose={this.handleClose} login={this.props.login} getUser={this.props.getUserInfo} userRegister={this.props.tryRegister} error={this.props.user.error}></LocalLogin>
             </React.Fragment>
         );
     }

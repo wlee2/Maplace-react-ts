@@ -7,6 +7,7 @@ interface LocalLoginProps {
     local: boolean;
     onClose: (local: boolean) => void;
     login: (email: string, password: string, cb: CallableFunction) => void;
+    getUser: () => void;
     userRegister: (email: string, address: string, name: string, password: string, cb: CallableFunction) => any;
     error: string;
 }
@@ -46,9 +47,9 @@ class LocalLogin extends Component<LocalLoginProps, any> {
             if (err) {
                 return;
             }
+            this.props.getUser();
             this.setState({ successToLogin: true })
             this.props.onClose(false);
-            return <Redirect to='/' />;
         });
     }
 
